@@ -41,24 +41,24 @@ void SetData()
 #define MOD_25_AND_24_EQUALS_0 0x4b00
 #define MOD_24_EQUALS_16 0x1900
 
-void SetAbility()
+void SetNature()
 {
 	u32 personality, oldMod24, newMod24;
-	u16 ability, originalAbility, partyPos, firstByte;
+	u16 nature, originalNature, partyPos, firstByte;
 	partyPos = gSpecialVar_0x8004;
-	ability = gScriptResult;
+	nature = gScriptResult;
 	
 	personality = GetMonData(&gPlayerParty[partyPos], MON_DATA_PERSONALITY, 0);
 	
 	firstByte = personality & 0xff;
 	// The first byte contains data from the gender and ability
-	originalAbility = firstByte % 25;
+	originalNature = firstByte % 25;
 
 	// Lot's of numeric "hacks" to prevent the change in the order of the pokemon's subtructures
-	// whilst modifiying the ability
+	// whilst modifiying the nature
 	oldMod24 = unsignedMod24Hack(personality);
 	
-	personality = firstByte + MOD_25_EQUALS_24 * (50 - ability + originalAbility) + Random() * MOD_25_AND_24_EQUALS_0;
+	personality = firstByte + MOD_25_EQUALS_24 * (50 - nature + originalNature) + Random() * MOD_25_AND_24_EQUALS_0;
 	newMod24 = unsignedMod24Hack(personality);
 	while (newMod24 != oldMod24) {
 		personality += MOD_24_EQUALS_16;
