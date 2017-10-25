@@ -1,8 +1,8 @@
 
-__aeabi_idiv = 0x082E7540|1;
-__aeabi_idivmod = 0x082E7BE0|1;
-__aeabi_uidiv = 0x082E7B68|1;
-__aeabi_uidivmod = 0x082E7BE0|1;
+__aeabi_idiv = 0x82E7088|1;
+__aeabi_idivmod = 0x82E7088|1;
+__aeabi_uidiv = 0x82E7088|1;
+__aeabi_uidivmod = 0x82E7088|1;
 
 Random = 0x0806f5cc|1;
 
