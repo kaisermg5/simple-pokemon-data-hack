@@ -57,7 +57,7 @@ ALL_OBJ := $(C_OBJ) $(S_OBJ) $(OTHER_OBJ)
 
 all: main.s $(BINARY)
 	@echo -e "Creating ROM"
-	$(ARMIPS) main.s -sym offsets.txt
+	$(ARMIPS) main.s -sym offsets.txt -strequ input_game $(ROM_CODE)0.gba
 
 clean:
 	rm -rf build
