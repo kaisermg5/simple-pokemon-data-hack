@@ -15,8 +15,8 @@ extern u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon);
 extern void EncryptBoxMon(struct BoxPokemon *boxMon);
 extern void DecryptBoxMon(struct BoxPokemon *boxMon);
 extern u16 Random();
+extern u32 __umodsi3(u32 x, u32 y);
 
-static u32 unsignedMod24Hack(u32 word);
 
 void GetData()
 {
@@ -52,17 +52,17 @@ void SetNature()
 	
 	firstByte = personality & 0xff;
 	// The first byte contains data from the gender and ability
-	originalNature = firstByte % 25;
+	originalNature = __umodsi3(firstByte, 25);
 
 	// Lot's of numeric "hacks" to prevent the change in the order of the pokemon's subtructures
 	// whilst modifiying the nature
-	oldMod24 = unsignedMod24Hack(personality);
+	oldMod24 = __umodsi3(personality, 24);
 	
 	personality = firstByte + MOD_25_EQUALS_24 * (50 - nature + originalNature) + Random() * MOD_25_AND_24_EQUALS_0;
-	newMod24 = unsignedMod24Hack(personality);
+	newMod24 = __umodsi3(personality, 24);
 	while (newMod24 != oldMod24) {
 		personality += MOD_24_EQUALS_16;
-		newMod24 = unsignedMod24Hack(personality);
+		newMod24 = __umodsi3(personality, 24);
 	}
 
 	
@@ -74,15 +74,5 @@ void SetNature()
 	EncryptBoxMon(&gPlayerParty[partyPos].box);
 
 	CalculateMonStats(&gPlayerParty[partyPos]);	
-}
-
-// FIXME: Does FR seriusly doesn't have an unsigned mod operator?
-static u32 unsignedMod24Hack(u32 word)
-{	
-	if (word & 0x80000000) {
-		return (((word & 0x7fffff00) % 24) + 8) % 24 ;
-	} else {
-		return (word & 0x7fffff00) % 24;
-	}
 }
 

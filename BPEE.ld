@@ -1,9 +1,4 @@
-
-__aeabi_idiv = 0x82E7088|1;
-__aeabi_idivmod = 0x82E7088|1;
-__aeabi_uidiv = 0x82E7088|1;
-__aeabi_uidivmod = 0x82E7088|1;
-
+__umodsi3 = 0x082e7be0|1;
 Random = 0x0806f5cc|1;
 
 GetMonData = 0x0806a518|1;
